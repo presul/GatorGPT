@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GatorGPT.ai | Private Equity Data Aggregation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            --bg-main: #050b14;     /* Deepest dark blue/black */
+            --bg-secondary: #0f172a; /* Slightly lighter dark section */
+            --gator-green: #00dc82; /* Electric accent color */
+            --text-light: #e2e8f0;
+            --text-dim: #94a3b8;
+        }
+
+        /* --- GLOBAL RESETS --- */
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-main); color: var(--text-light); overflow-x: hidden; }
+        h1, h2, h3 { margin-top: 0; line-height: 1.2; }
+        a { text-decoration: none; }
+
+        /* --- ANIMATION: MOVING LIGHT BEAMS --- */
+        /* This creates the scanning data effect on boxes */
+        .data-stream-box {
+            position: relative;
+            overflow: hidden;
+            background: #111c30; /* Dark tech background container */
+            border: 1px solid rgba(0, 220, 130, 0.2); /* Subtle green border */
+            border-radius: 12px;
+        }
+        
+        /* The moving beam is a pseudo-element overlay */
+        .data-stream-box::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right, /* Angled gradient */
+                transparent 0%,
+                rgba(0, 220, 130, 0.05) 40%,  /* Faint leading edge */
+                rgba(0, 220, 130, 0.6) 50%,   /* Bright center beam */
+                rgba(0, 220, 130, 0.05) 60%,  /* Faint trailing edge */
+                transparent 100%
+            );
+            transform: rotate(-45deg); /* Angle the beam */
+            animation: scanBeam 7s infinite linear; /* The movement engine */
+        }
+
+        @keyframes scanBeam {
+            0% { transform: translateX(-80%) translateY(-80%) rotate(-45deg); }
+            100% { transform: translateX(20%) translateY(20%) rotate(-45deg); }
+        }
+
+        /* --- COMPONENTS --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .btn-main {
+            display: inline-block;
+            background: var(--gator-green);
+            color: var(--bg-main);
+            padding: 15px 35px;
+            border-radius: 6px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 220, 130, 0.3);
+        }
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 220, 130, 0.6);
+        }
+
+        /* --- HEADER & NAV --- */
+        header { padding: 20px 0; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-weight: 800; font-size: 1.8rem; letter-spacing: -1px; color: white; }
+        .logo-accent { color: var(--gator-green); }
+
+        /* --- HERO SECTION --- */
+        .hero-section { padding: 80px 0 100px; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 40px; max-width: 500px; }
+        
+        /* The main visual area in the hero */
+        .hero-visual {
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-visual-inner-text {
+            position: relative; z-index: 2; font-weight: 800; font-size: 1.5rem; text-align: center; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* --- FEATURES SECTION --- */
+        .features-section { background: var(--bg-secondary); padding: 100px 0; }
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .section-header p { color: var(--text-dim); font-size: 1.1rem; }
+
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card { padding: 40px; height: 100%; transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 2rem; color: var(--gator-green); margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
+        .feature-card p { color: var(--text-dim); line-height: 1.7; z-index: 2; position: relative; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--bg-main); padding: 50px 0; text-align: center; color: var(--text-dim); font-size: 0.9rem; border-top: 1px solid #1e293b; }
+
+        /* --- MOBILE TWEAKS --- */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-content p { margin: 0 auto 40px; }
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-visual { height: 300px; margin-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="nav-flex">
+                <a href="#" class="logo-text">Gator<span class="logo-accent">GPT</span>.ai</a>
+                <div>
+                    <a href="mailto:contact@gatorgpt.ai" style="color: var(--text-dim); font-weight: 600;">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Private Equity Intelligence, <span style="color: var(--gator-green);">Aggregated.</span></h1>
+                    <p>Stop chasing data across portfolio companies. GatorGPT centralizes unstructured financial and operational data into actionable insights for PE firms.</p>
+                    <a href="mailto:contact@gatorgpt.ai" class="btn-main">Request Access</a>
+                </div>
+                <div class="hero-visual data-stream-box">
+                    <div class="hero-visual-inner-text">
+                        AI Processing <br> Active Stream
+                        <div style="color:var(--gator-green); margin-top: 10px;">/// LIVE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Apex Predator of Data</h2>
+                <p>Streamlining platform company insights with speed and precision.</p>
+            </div>
+            <div class="features-grid">
+                
+                <div class="feature-card data-stream-box">
+                    <div class="feature-icon">◈</div>
+                    <h3>Cross-Portfolio Aggregation</h3>
+                    <p>Connect disparate ERPs, CRMs, and spreadsheets from all your holdings into one unified view. No more manual consolidation.</p>
+                </div>
+
+                <div class="feature-card data-stream-box">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant AI Querying</h3>
+                    <p>Ask questions in plain English about cash flow, inventory, or headcount across your entire portfolio and get instant answers.</p>
+                </div>
+
+                <div class="feature-card data-stream-box">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Enterprise Security</h3>
+                    <p>Bank-grade encryption and role-based access control ensure sensitive financial data remains secure within your firm.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            &copy; 2026 GatorGPT.ai. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
